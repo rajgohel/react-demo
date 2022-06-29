@@ -5,7 +5,7 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-
+import '../node_modules/font-awesome/css/font-awesome.min.css'; 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
