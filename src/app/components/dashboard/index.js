@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
+import { CSVLink } from 'react-csv';
 import { useSelector, useDispatch } from 'react-redux';
 import { addProduct, deleteProduct, sortProductByName, sortProductByPrice } from '../../../features/product/productSlice';
 import { InputText } from '../../shared/input';
@@ -75,6 +76,13 @@ const DashBoard = () => {
         dispatch(sortProductByPrice(sortTogglePrice));
     }
 
+    const headers = [
+        { label: "Name", key: "productName" },
+        { label: "Price", key: "price" },
+    ];
+
+    const data = productData;
+
     const list = inputs.map(input => {
         return (
             <InputText
@@ -106,13 +114,18 @@ const DashBoard = () => {
                             onChange={(e) => { handleOnchange(e.target.value) }}
                         />
                     </InputGroup>
+                    <CSVLink data={data} headers={headers} filename={"my-file.csv"}>
+                        <Button>
+                        <i className="fa fa-file-text-o"></i> CSV
+                        </Button>
+                    </CSVLink>
                 </div>
                 <Table striped bordered hover>
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Name <i class={sortToggleName ? "fa fa-arrow-up" : "fa fa-arrow-down"} style={{cursor: "pointer"}} aria-hidden="true" onClick={() => { handleNameSort() }}></i></th>
-                            <th>Price <i class={sortTogglePrice ? "fa fa-arrow-up" : "fa fa-arrow-down"} style={{cursor: "pointer"}} aria-hidden="true" onClick={() => { handlePriceSort() }}></i></th>
+                            <th>Name <i class={sortToggleName ? "fa fa-arrow-up" : "fa fa-arrow-down"} style={{ cursor: "pointer" }} aria-hidden="true" onClick={() => { handleNameSort() }}></i></th>
+                            <th>Price <i class={sortTogglePrice ? "fa fa-arrow-up" : "fa fa-arrow-down"} style={{ cursor: "pointer" }} aria-hidden="true" onClick={() => { handlePriceSort() }}></i></th>
                             <th>Action</th>
                         </tr>
                     </thead>

@@ -13,7 +13,7 @@ const inputs = [{
 }, {
     "type": "password",
     "title": "Password",
-    "name": "passeord",
+    "name": "password",
     "class": "text",
     "placeholder": "Password"
 }];
@@ -29,8 +29,13 @@ const SignIn = () => {
     }
     const handleSignIn = (e) => {
         e.stopPropagation();
-        localStorage.setItem("token", "userToken");
-        navigate("/dashboard", { replace: true });
+        if (inputState.userName && inputState.password) {
+            localStorage.setItem("token", "userToken");
+            navigate("/dashboard", { replace: true });
+        }
+        else{
+            alert("Please enter User Name and Password.")
+        }
     }
     const list = inputs.map(input => {
         return (
